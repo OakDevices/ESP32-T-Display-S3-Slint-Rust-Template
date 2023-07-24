@@ -1,0 +1,39 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+rust-version = "1.68"
+
+[dependencies]
+slint = { version = "1.1.1", default-features = false, features = ["compat-1-0"] }
+
+hal = { package = "esp32s3-hal", version = "0.10.0", optional = true }
+esp-alloc = { version = "0.3.0", optional = true }
+esp-backtrace = { version = "0.7.0", features = ["esp32s3", "panic-handler", "exception-handler", "print-uart"], optional = true }
+esp-println = { version = "0.5.0", features = ["esp32s3"], optional = true }
+display-interface = { version = "0.4.1", optional = true }
+display-interface-parallel-gpio = { version = "0.6.0", optional = true }
+mipidsi = { version = "0.7.1", optional = true }
+embedded-graphics = { version = "0.8.0", optional = true }
+num-traits = { version = "0.2.16", default-features = false, features = ["libm"], optional = true }
+embedded-hal = { version = "0.2.7", optional = true }
+cst816s = { version = "0.1.4", optional = true }
+
+[build-dependencies]
+slint-build = "1.1.1"
+
+[features]
+simulator = ["slint/renderer-winit-software", "slint/backend-winit"]
+esp32s3 = [
+    "slint/unsafe-single-threaded",
+    "slint/libm",
+    "hal",
+    "esp-alloc",
+    "esp-backtrace",
+    "esp-println",
+    "display-interface",
+    "display-interface-parallel-gpio",
+    "mipidsi",
+    "embedded-graphics"
+]
